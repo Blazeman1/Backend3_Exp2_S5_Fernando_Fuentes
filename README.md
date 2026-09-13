@@ -266,3 +266,11 @@ Los 6 archivos de log de este run quedan como artefacto descargable (`evidencias
 | 4 | Implementa todas las medidas de seguridad requeridas —HTTPS, certificados y tokens de autenticación/autorización— de manera uniforme en todos los BFFs (20 pts) | Sección 5.1 (HTTPS + certificados autofirmados en los 4 servicios) + sección 5 (tokens JWT/opacos ya existentes) |
 | 5 | Organiza el código de manera modular y estructurada, fácil de extender y escalar sin afectar el código existente (15 pts) | Sección 6 (estructura de módulos independientes, esqueleto interno replicado) + sección 6.2 (procedimiento explícito y aditivo para agregar un canal nuevo) |
 | 6 | Entrega los 3 aspectos clave del caso: código fuente, documentación (README) y evidencia de ejecución (10 pts) | Repositorio completo + este README + sección 8 (evidencia real vía GitHub Actions, logs descargables como artefacto) |
+
+## 11. Próximos pasos posibles
+
+- Reemplazar el repositorio en memoria de `core-service` por PostgreSQL + Spring Data JPA.
+- Sustituir la clave interna compartida y la confianza permisiva TLS (`TrustAllSslConfig`, sección 5.1) por mTLS entre los BFF y `core-service`, o por un truststore con el certificado de `core-service` importado explícitamente (*certificate pinning*), en vez de confiar en cualquier certificado.
+- Reemplazar los certificados autofirmados por certificados emitidos por una CA real una vez que los servicios tengan un dominio público (Let's Encrypt u otro), y automatizar su renovación.
+- Agregar un API Gateway delante de los tres BFF para enrutamiento, rate limiting y observabilidad centralizada (complementario al patrón BFF, no un reemplazo — ver la comparación de la guía de la semana).
+- Añadir pruebas automatizadas (`spring-boot-starter-test` + `MockMvc`) para cada controlador, y `Testcontainers` si `core-service` migra a una base de datos real.
