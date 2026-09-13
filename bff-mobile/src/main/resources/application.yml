@@ -1,0 +1,27 @@
+server:
+  port: 8082
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: "keystore-mobile-banco-xyz-2026"
+    key-alias: bff-mobile
+
+spring:
+  application:
+    name: bff-mobile
+
+core-service:
+  base-url: https://localhost:8080
+  api-key: "clave-interna-banco-xyz-2026"
+
+seguridad:
+  jwt:
+    secreto: "clave-secreta-canal-movil-banco-xyz-no-usar-en-produccion-2026"
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{45} - %msg%n"
+  level:
+    root: INFO
+    com.bancoxyz.bff.mobile: INFO

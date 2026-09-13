@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: "keystore-core-banco-xyz-2026"
+    key-alias: core-service
+
+spring:
+  application:
+    name: core-service
+
+# Clave compartida que deben enviar los BFF en el encabezado X-Internal-Api-Key.
+# Solo es un valor de demostracion academica; en un entorno real viviria en un
+# gestor de secretos (Vault, AWS Secrets Manager, etc.), nunca en un archivo versionado.
+core:
+  internal-api-key: "clave-interna-banco-xyz-2026"
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{45} - %msg%n"
+  level:
+    root: INFO
+    com.bancoxyz.bff.core: INFO

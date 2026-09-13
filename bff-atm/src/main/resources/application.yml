@@ -1,0 +1,23 @@
+server:
+  port: 8083
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: "keystore-atm-banco-xyz-2026"
+    key-alias: bff-atm
+
+spring:
+  application:
+    name: bff-atm
+
+core-service:
+  base-url: https://localhost:8080
+  api-key: "clave-interna-banco-xyz-2026"
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{45} - %msg%n"
+  level:
+    root: INFO
+    com.bancoxyz.bff.atm: INFO
