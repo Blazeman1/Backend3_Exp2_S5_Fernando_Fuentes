@@ -223,17 +223,29 @@ Antes de agregar HTTPS, el mismo workflow ya se había ejecutado exitosamente so
 ### 8.2 Comparativa cuantitativa de optimización por canal (requisito específico de la Semana 5)
 
 Más allá de la personalización funcional ya evidenciada en la sección 4, la pauta sumativa exige evidencia de que cada canal **optimiza el tamaño de la respuesta y el consumo de recursos**, no solo que "se ve distinto". El paso 4 de `scripts/probar_apis.sh` mide esto de forma objetiva: sobre la **misma cuenta** (101) y la **misma fuente de verdad** (`core-service`), consulta el endpoint representativo de cada canal y registra, con `curl -w`, el tamaño de la respuesta en bytes y el tiempo total, imprimiendo una tabla comparativa con el porcentaje de reducción de Móvil y Cajero respecto de Web (línea base, por ser la respuesta más completa):
+Resultado real, medido sobre HTTPS en GitHub Actions (ver sección 8.3):
 
 ```
-Canal               Bytes      Tiempo (s)     Reduccion vs WEB
-WEB                  ~1400           ~0.01       0% (linea base)
-MOVIL                 ~180           ~0.01               ~87%
-CAJERO                 ~25           ~0.01               ~98%
+Canal                Bytes      Tiempo (s)     Reduccion vs WEB
+WEB                   4701        0.028720       0% (linea base)
+MOVIL                  226        0.030646               95.2%
+CAJERO                  27        0.019911               99.4%
 ```
 
-(Valores exactos en `evidencias/evidencia06-pruebas-apis.log` de cada ejecución real — ver sección 8.1 sobre cómo se genera. El orden de magnitud es estructural, no depende de la ejecución puntual: Web siempre serializa el historial completo más los agregados, Móvil siempre recorta a 3 movimientos sin datos personales, y Cajero siempre responde un único número.)
+(Estos son los valores exactos de `evidencias/evidencia06-pruebas-apis.log` de la ejecución verificada en la sección 8.3. El orden de magnitud es estructural, no depende de la ejecución puntual: Web siempre serializa el historial completo más los agregados, Móvil siempre recorta a 3 movimientos sin datos personales, y Cajero siempre responde un único número — por eso la reducción se mantiene por sobre el 95% incluso variando la cuenta de prueba.)
 
 Esta comparación es la contraparte cuantitativa de la tabla cualitativa de la sección 4: demuestra que la optimización no es solo "estos campos no están", sino que se traduce en una reducción medible del payload — precisamente lo que el canal con más restricciones de ancho de banda (móvil) y el de menor tolerancia a exposición de datos (cajero) necesitan.
+
+### 8.3 Evidencia de ejecución verificada — HTTPS (13-09-2026)
+
+Tras habilitar HTTPS en los 4 servicios (sección 5.1), el workflow se ejecutó exitosamente en GitHub Actions de punta a punta:
+
+- **Build**: los 4 módulos compilaron sin errores (`BUILD SUCCESS`, `evidencia01-build.log`).
+- **Arranque HTTPS**: los 4 servicios confirman, en su log de arranque, el conector TLS activo con el keystore y el alias correctos — por ejemplo `Connector [https-jsse-nio-8080] ... configured from keystore [...] using alias [core-service]` — y ninguno de los 6 logs contiene un error de TLS/handshake/certificado.
+- **Los 4 flujos funcionales** (rechazo sin clave interna, login+consulta Web con corte de autorización cruzada, login+resumen Móvil, sesión+saldo+retiro+invalidación+límite de Cajero) se repitieron sin fallas, ahora sobre HTTPS con `curl -k`, exactamente igual que en el hito de la sección 8.1 pero con el transporte cifrado.
+- **La comparativa de optimización de la sección 8.2** corrió sin errores y produjo números reales contundentes: la respuesta Móvil pesa un 95,2% menos que la Web, y la de Cajero un 99,4% menos, midiendo la misma cuenta.
+
+Los 6 archivos de log de este run quedan como artefacto descargable (`evidencias-ejecucion-bff`) en la pestaña Actions del repositorio, y constituyen la evidencia de ejecución real exigida por la pauta sumativa para los 6 criterios de esta actividad — incluido, ahora, el criterio 4 (HTTPS + certificados + tokens) y el criterio 2 con evidencia cuantitativa (sección 8.2).
 
 ## 9. Decisiones de diseño y simplificaciones (transparencia académica)
 

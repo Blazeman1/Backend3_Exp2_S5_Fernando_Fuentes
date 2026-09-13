@@ -1,0 +1,23 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-09-13 13:11:45.511 [main] INFO  com.bancoxyz.bff.web.BffWebApplication - Starting BffWebApplication v1.0.0 using Java 21.0.12.1 with PID 2438 (/home/runner/work/Backend3_Exp2_S5_Fernando_Fuentes/Backend3_Exp2_S5_Fernando_Fuentes/bff-web/target/bff-web.jar started by runner in /home/runner/work/Backend3_Exp2_S5_Fernando_Fuentes/Backend3_Exp2_S5_Fernando_Fuentes)
+2026-09-13 13:11:45.517 [main] INFO  com.bancoxyz.bff.web.BffWebApplication - No active profile set, falling back to 1 default profile: "default"
+2026-09-13 13:11:46.821 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (https)
+2026-09-13 13:11:46.841 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-09-13 13:11:46.841 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-09-13 13:11:46.874 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-09-13 13:11:46.875 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1291 ms
+2026-09-13 13:11:47.435 [main] INFO  o.a.tomcat.util.net.NioEndpoint.certificate - Connector [https-jsse-nio-8081], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [/home/runner/.keystore] using alias [bff-web] with trust store [null]
+2026-09-13 13:11:47.448 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8081 (https) with context path '/'
+2026-09-13 13:11:47.469 [main] INFO  com.bancoxyz.bff.web.BffWebApplication - Started BffWebApplication in 2.471 seconds (process running for 3.102)
+2026-09-13 13:11:47.603 [https-jsse-nio-8081-exec-5] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-13 13:11:47.603 [https-jsse-nio-8081-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-09-13 13:11:47.604 [https-jsse-nio-8081-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
